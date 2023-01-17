@@ -1,0 +1,22 @@
+.icons{
+    font-size: 1.5rem;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    width: 25%;
+    justify-content: space-around;
+    display: none;
+    align-items: center;
+}
+
+.todo-body:hover .icons{
+    display: flex;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.bx:hover{
+    color: teal;
+}

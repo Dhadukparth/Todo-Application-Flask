@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Todo Application In Flask With SQLite Database</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- Set The Web Icon -->
+    <link rel="icon" href="{{url_for('static', filename='images/icon.png')}}">
+
+    <!-- Box Icon link -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{{url_for('static', filename="CSS/style.css")}}">
+
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>{{message}}</strong>
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+
+    <div class="container my-5">
+
+        <div class="d-flex justify-content-around align-items-center">
+            <h2>Todo Application</h2>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newTodoModal">New Todo</button>
+        </div>
+
+        <hr>
+
+        <div class="row row-cols-4 m-0 gap-3 justify-content-center">
+            {% for todo in todos %}
+                <div class="col card">
+                    <div class="card-body todo-body">
+                        <div class="icons">
+                            <a href="http://localhost:5000/edit/{{todo.id}}" class='bx bxs-edit  pointer'></a>
+                            <a href="http://localhost:5000/remove/{{todo.id}}" class='bx bx-trash  pointer' onclick="return(confirm('Are you sure this todo is delete?'))"></a>
+                        </div>
+                        <h4 class="card-title">{{todo.title}}</h4>
+                        <p class="card-text">{{todo.desc}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+    <!-- New Todo Modal -->
+    <div class="modal fade" id="newTodoModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">New Todo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{url_for('newTodo')}}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="new_todo_title" class="form-label">Title</label>
+                            <input type="text" class="form-control" name="new_todo_title" id="new_todo_title" aria-describedby="helpId" placeholder="Your Todo Title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_todo_description" class="form-label">Description</label>
+                            <textarea class="form-control" name="new_todo_description" id="new_todo_description" placeholder="Your Todo Description" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>
